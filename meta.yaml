@@ -1,0 +1,25 @@
+package:
+  name: kdb
+  version: 3.6
+
+build:
+  number: 3
+
+requirements:
+  run:
+    - python
+
+test:
+  files:
+    - test.q
+  commands:
+    # Verify the scripts are in-place.
+    {% for state in ["activate", "deactivate"] %}
+    - test -f "${PREFIX}/etc/conda/{{ state }}.d/kdb_{{ state }}.sh"   [unix]
+    - if not exist %PREFIX%\\etc\\conda\\{{ state }}.d\\kdb_{{ state }}.bat exit 1   [win]
+    {% endfor %}
+
+about:
+  home: https://kx.com/
+  license: Commercial
+  summary: KDB+ database
