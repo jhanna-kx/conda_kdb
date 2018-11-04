@@ -4,6 +4,7 @@ package:
 
 build:
   number: 3
+  string: {{ environ.get('QBUILD', '') }}
 
 requirements:
   run:
