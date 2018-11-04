@@ -220,7 +220,6 @@ else:
   #license_ondemand_guard()
   fetch_options()
   license()
-print(qpath)
 if plat == 'Windows' and os.path.basename(sys.argv[0].lower()) == 'q.py':
 	import subprocess
 	retcode = subprocess.run([qpath] + args).returncode
