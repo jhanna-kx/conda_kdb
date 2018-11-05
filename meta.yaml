@@ -3,7 +3,7 @@ package:
   version: 3.6
 
 build:
-  number: 4
+  number: 5
   string: {{ environ.get('QBUILD', '') }}
 
 requirements:
