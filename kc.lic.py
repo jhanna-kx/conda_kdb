@@ -134,7 +134,7 @@ def fetch_options():
 
   if not options.agree:
     license_agreement()
-    options.agree = input('I agree to the terms of the license agreement for kdb+ on demand Personal Edition (N/y): ')
+    options.agree = True if 'y' == input('I agree to the terms of the license agreement for kdb+ on demand Personal Edition (N/y): ').lower() else False
     print()
   if not options.agree:
     print('not agreed to license, aborting', file=sys.stderr)
@@ -207,6 +207,14 @@ for el, ln in [('QLIC_K4', 'k4.lic'), ('QLIC_KC', 'kc.lic')]:
       file.write(base64.b64decode(lic))
     break
 
+headless="""\
+Headless detected and no license found.
+
+If you do not have a license you should run q interactively from the command line or command prompt before running headless.
+
+If you have an existing license you should copy it to QHOME before running headless. Alternatively if you do not want to copy your license to QHOME you can set the QLIC_KC or QLIC_K4 environment variables with the base-64 encoded contents of your license, set QLIC_KC if you have a kc.lic (ondemand) license or QLIC_K4 if you have a k4.lic license.
+"""
+
 for p in [qlic, qhome, '.']:
   if os.path.isfile(os.path.join(p, 'k4.lic')):
     break
@@ -215,7 +223,7 @@ for p in [qlic, qhome, '.']:
     break
 else:
   if not sys.stdin.isatty():
-    print('Headless detected, please refer to https://github.com/KxSystems/kdb-dist/README.docker.md#headless', file=sys.stderr)
+    print(headless,file=sys.stderr)
     sys.exit(1)
   #license_ondemand_guard()
   fetch_options()
