@@ -1,2 +1,2 @@
 @echo off
-"%~dp0\q.py" %*
+python.exe "%~dp0\q.py" %*
