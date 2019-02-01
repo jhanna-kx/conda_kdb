@@ -222,12 +222,12 @@ for p in [qlic, qhome, '.']:
     #license_ondemand_guard()
     break
 else:
-  if not sys.stdin.isatty():
+  if sys.stdin.isatty() and sys.stdout.isatty():
+    fetch_options()
+    license()
+  else:
     print(headless,file=sys.stderr)
     sys.exit(1)
-  #license_ondemand_guard()
-  fetch_options()
-  license()
 if plat == 'Windows' and os.path.basename(sys.argv[0].lower()) == 'q.py':
 	import subprocess
 	retcode = subprocess.run([qpath] + args).returncode
