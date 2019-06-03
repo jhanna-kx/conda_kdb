@@ -51,13 +51,19 @@ if not os.path.isfile(qpath):
 
 url = os.getenv('KDB_LICENSE_URL', 'https://l.kx.com/l')
 
-parser = ArgumentParser(epilog='Any arguments except those above are passed to q')
+parser = ArgumentParser(epilog='Arguments except those listed above or which follow \'--\' are passed to kdb+',
+                        usage='%(prog)s [OPTIONS] [-- KDB+OPTIONS]',add_help=False)
+parser.add_argument('--help', dest='help', help='show this message and exit',action='store_true')
 parser.add_argument('--agree', dest='agree', action='store_true', help='agree to terms of license agreement', default=os.getenv('KDB_LICENSE_AGREE'))
 parser.add_argument('--company', dest='company', help='company name (optional)', default=os.getenv('COMPANY'))
 parser.add_argument('--name', dest='name', help='name', default=os.getenv('NAME'))
 parser.add_argument('--email', dest='email', help='email address', default=os.getenv('EMAIL'))
 parser.add_argument('--license-number', dest='num', help='license number', default=os.getenv('KDB_LICENSE_NUMBER'))
 (options, args) = parser.parse_known_args()
+if options.help:
+    parser.print_help()
+    sys.exit(0)
+args=list(filter(lambda x:x!='--',args))
 
 def license_agreement ():
   print('''\
