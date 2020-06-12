@@ -46,7 +46,7 @@ export QLIC=$LICDIR
 QBUILD=$(echo .z.k|${OSL}64/q -q)
 export QBUILD
 
-conda build --no-long-test-prefix --no-include-recipe .
+conda build --croot /tmp --no-long-test-prefix --no-include-recipe .
 
 
 

@@ -3,12 +3,13 @@ package:
   version: 3.6
 
 build:
-  number: 8
+  number: 9
   string: {{ environ.get('QBUILD', '') }}
 
 requirements:
   run:
     - python
+    - openssl <1.1
 
 test:
   files:

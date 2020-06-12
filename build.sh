@@ -18,6 +18,7 @@ fi
 cp $KX/${OSL}64.zip .
 unzip ${OSL}64.zip
 mkdir -p $PREFIX/q/${OSL}64
+mkdir $PREFIX/bin/
 mv ${OSL}64/q $PREFIX/q/${OSL}64
 mv q.k $PREFIX/q
 cp ${RECIPE_DIR}/kc.lic.py $PREFIX/bin/q
