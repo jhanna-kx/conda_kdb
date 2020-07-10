@@ -1,9 +1,9 @@
 
-if exist %LICDIR%\kc.lic (  
- copy /Y %LICDIR%\kc.lic "%QHOME%"
+if exist %QLIC%\kc.lic (  
+ copy /Y %QLIC%\kc.lic "%QHOME%"
 ) else (
- if exist %LICDIR%\k4.lic (
-  copy /Y %LICDIR%\k4.lic "%QHOME%"
+ if exist %QLIC%\k4.lic (
+  copy /Y %QLIC%\k4.lic "%QHOME%"
  ) else (
   echo "No kc.lic/k4.lic" 
   exit /b 1

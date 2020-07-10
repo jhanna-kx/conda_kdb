@@ -1,15 +1,13 @@
 package:
   name: kdb
-  version: 3.6
+  version: {{ environ.get('QVER', '') }}
 
 build:
-  number: 10
-  string: {{ environ.get('QBUILD', '') }}
+  number: {{ environ.get('QBUILD', '') }}
 
 requirements:
   run:
     - python
-    - openssl <1.1
 
 test:
   files:
