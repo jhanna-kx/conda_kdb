@@ -1,9 +1,8 @@
 # conda_kdb
 conda_kdb
 ## Build
+
 put l64/m64/w64.zip in this directory then follow build instructions
-increment the build number in meta.yaml (even if .z.k is later this seems to be required)
-### Linux/macOS
 
 build with 
 ```
