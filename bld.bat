@@ -27,6 +27,7 @@ if errorlevel 1 exit 1
 move q.k "%PREFIX%\q"
 if errorlevel 1 exit 1
 
+mkdir %SCRIPTS%
 copy "%RECIPE_DIR%\kc.lic.py" "%SCRIPTS%\q.py"
 if errorlevel 1 exit 1
 

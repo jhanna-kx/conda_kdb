@@ -7,17 +7,15 @@ increment the build number in meta.yaml (even if .z.k is later this seems to be 
 
 build with 
 ```
-./conda_build.sh
+q conda_build.q
 ```
 
 ### Windows
 
-set LICDIR to directory containing kc.lic/k4.lic, set QBUILD to .z.k of target kdb build
-build with 
+you need 7z installed, to avoid conda wrapper scripts when running conda_build.q  use
 ```
-conda build --no-long-test-prefix --no-include-recipe .
+ C:\q\w64\q.exe conda_build.q
 ```
-
 
 
 ## Upload
