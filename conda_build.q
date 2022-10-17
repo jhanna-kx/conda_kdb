@@ -16,7 +16,7 @@ qver:system"echo .z.K,.z.k|",o,$[.z.o like"w*";"\\";"/"],"q -q"
 `QVER`QBUILD setenv'(.Q.fmt[3;1;value qver 0];qver[1]except ".");
 file:first u@-1+where (u:system"conda build --croot /tmp --no-long-test-prefix --no-include-recipe .")like "anaconda_upload is not set*"
 -1"\nNow run\n", "\t anaconda -t $CONDAUPLOADTOKEN upload -l dev ",file;
--1"JH: if you don't see a file name here ending in bz2, conda build has likely changed the output format, rerun without exit 0 and look at the output of the conda build system command":
+-1"JH: if you don't see a file name here ending in bz2, conda build has likely changed the output format, rerun without exit 0 and look at the output of the conda build system command";
 
 exit 0
 
