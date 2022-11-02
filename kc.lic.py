@@ -48,6 +48,8 @@ for l in ["kx.lic", "kc.lic", "k4.lic"]:
 
 if not lic_found:
   lic_path = None
+docker = os.getenv("KX_IN_DOCKER") == "Y"
+tty = (sys.stdin.isatty() and sys.stdout.isatty())
 
 for env_name, lic_name in [("QLIC_KC", "kc.lic"), ("QLIC_K4", "k4.lic")]:
   b64lic = os.getenv(env_name)
@@ -62,8 +64,9 @@ for env_name, lic_name in [("QLIC_KC", "kc.lic"), ("QLIC_K4", "k4.lic")]:
       print("Invalid license code in environment variable {}.".format(env_name), file=sys.stderr)
       sys.exit(1)
     lic_path = os.path.join(qlic, lic_name)
-    print("Writing out license code from environment variable {} to {}".format(env_name, lic_path))
-    print()
+    if tty and not docker:
+      print("Writing out license code from environment variable {} to {}".format(env_name, lic_path))
+      print()
     with open(lic_path, 'wb') as file:
       file.write(lic)
     break
@@ -77,25 +80,31 @@ If you do have a license, copy it to {}
 
 Alternatively, set environment variable QLIC_KC (for kc.lic) or QLIC_K4 (for k4.lic) with the base64-encoded contents of your license.
 """.format(qhome)
+nolic = """\
+Please contact KX to request a license.
+
+This can be done online by visitting https://kx.com/developers/download-licenses/
+
+You can install a license manually by copying it to {}""".format(qhome)
 
 lic_url = "https://kx.com/kdb-personal-edition-download/"
 
 if not lic_path:
-  if not (sys.stdin.isatty() and sys.stdout.isatty()):
+  if not tty:
     print(headless, file=sys.stderr)
     sys.exit(1)
-  print("No license found. Would you like to visit kx.com now to obtain a license? ", end='')
-  ret = input("N/y: ").lower()
-  print()
-  if not ret in ["y", "yes"]:
-    print("Please contact KX to request a license.", file=sys.stderr)
-    print("This can be done online by visiting https://kx.com/developers/download-licenses/", file=sys.stderr)
-    print("You can install a license manually by copying it to {}".format(qlic), file=sys.stderr)
-    sys.exit(1)
-  print("Redirecting browser to {}".format(lic_url))
-  print("Please fill out your details to obtain a license via email.")
-  webbrowser.open(lic_url)
-  time.sleep(2)
+  if not docker:
+    ret = input("No license found. Would you like to visit kx.com now to obtain a license? N/y: ").lower()
+    if not ret in ["y", "yes"]:
+      print(nolic,file=sys.stderr)
+      sys.exit(1)
+    print()
+    print("Redirecting browser to {}".format(lic_url))
+    print("Please fill out your details to obtain a license via email.")
+    webbrowser.open(lic_url)
+    time.sleep(2)
+  else:
+    print("No license found. please visit {} to obtain a license".format(lic_url))
   print()
   b64lic = input("Input base64-encoded license here (or press enter to install license manually): ")
   print()
