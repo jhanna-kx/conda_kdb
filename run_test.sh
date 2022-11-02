@@ -9,6 +9,8 @@ else
  echo "No kc.lic/k4.lic" >&2
  exit 1
 fi
+if [[ $SUBDIR == $build_platform ]]
+then
+ $PREFIX/bin/q test.q -s 2
+fi
 
-
-$PREFIX/bin/q test.q -s 2 

@@ -8,12 +8,16 @@ do
 done
 
 KX=$RECIPE_DIR
-if [ `uname` == Linux ]; then
-    OSL='l'
-fi
-if [ `uname` == Darwin ]; then
-    OSL='m'
-fi
+# this seems a bit unreliable but SUBDIR only env variable could find in practice to distinguish between target_platform with conda build
+QPY=q;
+case $SUBDIR in
+  #win-64)  # TODO
+  # OSL='w'
+  linux-64 | linux-arm64)
+   OSL='l';;
+  osx-64 | osx-arm64)
+   OSL='m';;
+esac
 
 cp $KX/${OSL}64.zip .
 unzip ${OSL}64.zip
