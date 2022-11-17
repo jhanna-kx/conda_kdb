@@ -106,7 +106,7 @@ if not lic_path:
   else:
     print("No license found. please visit {} to obtain a license".format(lic_url))
   print()
-  b64lic = input("Input base64-encoded license here (or press enter to install license manually): ")
+  b64lic = input("Input base64-encoded license here (or press enter to install license manually): ").strip()
   print()
   if(len(b64lic) == 0):
     print("To install license manually, copy to {}".format(qlic))
